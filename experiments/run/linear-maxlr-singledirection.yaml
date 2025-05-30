@@ -1,0 +1,21 @@
+d: 1000
+L: placeholder
+learning_rate_coefficient: 5e-4
+T: 1.3e5
+teacher:
+  type: ssi
+  function: sqrtz1
+
+student:
+  type: placeholder # swipe on this!
+  activation: relu
+ic_type: overlapped
+ic_seed: 2305
+ic_randomsign: false
+learning_rate_scaling_with_L: placeholder # swipe on this!
+number_of_measures: 100
+metrics:
+  - overlap
+  - steps
+  - normalized_overlap_component
+data_seed: 0

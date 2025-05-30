@@ -1,0 +1,21 @@
+d: 1000
+learning_rate_coefficient: 2e-4
+T: 25000000
+# learning_rate_coefficient: 1e-3
+# T: 5000000
+teacher_function: H2sum
+student_activation: relu
+ic_type: overlapped
+ic_seed: 2305
+ic_randomsign: false
+learning_rate_scaling_with_L: none
+number_of_measures: 10000
+metrics:
+  - overlap
+  - steps
+  # - population_square_loss # Don't use, it crashes
+
+# The following parameters will be swept
+L: 1
+data_seed: 0
+student_type: plain_network

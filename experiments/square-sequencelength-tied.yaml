@@ -1,0 +1,13 @@
+run:
+  learning_rate_scaling_with_L: sqrt
+  student_type: tied_network
+
+hydra:
+  sweeper:
+    params:
+      run.data_seed: 0, 1, 3, 4, 5
+      run.L: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+defaults:
+ - machine: test
+ - run: square-sequencelength
+ - override hydra/launcher: joblib

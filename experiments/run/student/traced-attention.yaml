@@ -1,0 +1,5 @@
+type: attention
+positional_encoding:
+    type: none
+reduction:
+    type: trace

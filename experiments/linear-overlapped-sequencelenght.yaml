@@ -1,0 +1,32 @@
+run:
+  d: 1000
+  learning_rate_coefficient: 1.5e-2
+  T: 100000
+  teacher_function: inversesqrtsum
+  student_activation: relu
+  ic_type: overlapped
+  ic_seed: 3456
+  ic_randomsign: false
+  learning_rate_scaling_with_L: none
+  number_of_measures: 300
+  metrics:
+      - overlap
+      - steps
+      - population_square_loss
+      - student_norm
+      - normalized_overlap_component
+
+  # The following parameters will be swept
+  L: 2
+  data_seed: 0
+  student_type: plain_network
+hydra:
+  sweeper:
+    params:
+      run.L: 1, 2, 5, 8, 10, 15, 25, 32
+      run.data_seed: 0
+      run.student_type: plain_network, tied_network
+
+defaults:
+ - machine: production
+ - override hydra/launcher: joblib

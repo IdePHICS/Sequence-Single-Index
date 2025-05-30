@@ -1,0 +1,46 @@
+run:
+  L: 2
+  d: 1000
+  learning_rate_coefficient: 5e-2
+  T: 1e8
+  teacher:
+    type: positional_semantic_model
+    omega: 0.95
+    pre_softmax_A: [[0.5776, -0.5776],[-0.5776, 0.5776]]
+  student:
+    type: attention
+    positional_encoding:
+      type: opposite
+      seed: 20573
+    reduction:
+      type: none
+  ic_type: overlapped
+  ic_seed: 34795
+  ic_randomsign: false
+  ic_overlap: 0.
+  learning_rate_scaling_with_L: none
+  number_of_measures: 300
+  metrics:
+      - overlap
+      - steps
+      - positional_overlap
+  metrics_kwargs:
+    overlap:
+      signed: true # change to true nex time you run
+  loss: frobenius
+
+
+  # The following parameters will be swept
+  data_seed: 0
+
+hydra:
+  sweeper:
+    params:
+      run.data_seed: 220300, 220301, 220302, 220303, 220304 #, 220305, 220306, 220307
+      run.ic_seed: 34795, 34796, 34797, 34798 #, 34799, 34800, 34801, 34802
+      run.teacher.omega: 0.95
+
+
+defaults:
+ - machine: test
+ - override hydra/launcher: joblib

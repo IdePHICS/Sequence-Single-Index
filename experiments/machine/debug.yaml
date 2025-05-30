@@ -1,0 +1,3 @@
+device: cpu
+computation_storage_path: computation-storage-test
+skip_existing: false

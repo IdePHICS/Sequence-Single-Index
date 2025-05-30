@@ -1,0 +1,37 @@
+run:
+  d: 1000
+  learning_rate_coefficient: 5e-4
+  T: 2e7
+  teacher:
+    type: ssi
+    function: inversesqrtH2sum
+  ic_type: overlapped
+  ic_seed: 2709
+  ic_randomsign: false
+  learning_rate_scaling_with_L: none
+  loss: square
+  number_of_measures: 3000
+  metrics:
+    - overlap
+    - steps
+    - student_norm
+    - normalized_overlap_component
+  
+  # The following parameters will be swept
+  L: 2
+  data_seed: 0
+
+machine:
+  device: cpu
+
+hydra:
+  sweeper:
+    params:
+      run.L: 3, 4, 5, 6, 7, 8, 9 # Simulated but not showed: 1, 2
+      run.data_seed: 0,1,2,3,4,5,6,7,8,9
+      run/student: plain-square, traced-attention
+
+defaults:
+  - run/student: plain-square # traced-attention
+  - machine: test
+  - override hydra/launcher: joblib
